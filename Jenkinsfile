@@ -12,7 +12,7 @@ node {
   rtMaven.resolver server: artServer, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
   rtMaven.deployer server: artServer, releaseRepo: 'libs-snapshot-local', snapshotRepo: 'libs-snapshot-local'
   rtMaven.tool = 'maven'
-   rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+   rtMaven.run pom: 'pom.xml', goals: 'clean install -Dmaven.test.skip=true', buildInfo: buildInfo
    // Mark the code checkout 'stage'....
    stage('Checkout Docker') {
    // Get some code from a GitHub repository
