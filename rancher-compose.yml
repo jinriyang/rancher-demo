@@ -1,0 +1,9 @@
+version: '2'
+services:
+  mydatabase:
+    scale: 1
+    start_on_create: true
+  demo:
+    scale: 1
+    start_on_create: true
+
