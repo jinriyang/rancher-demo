@@ -1,4 +1,4 @@
-FROM docker-release-local2.demo.jfrogchina.com/docker-framework:latest
+FROM java:8
 
 MAINTAINER Liu jinry@jfrog.com
 
