@@ -1,6 +1,5 @@
-FROM java:8
-MAINTAINER Liu jinry@jfrog.com
-VOLUME /tmp
+FROM docker.io/openjdk:8-jdk-alpine
+MAINTAINER jin jinry@jfrog.com
 ADD *.jar app.jar
 RUN bash -c 'touch /app.jar'
 ENV JAVA_OPTS=""
