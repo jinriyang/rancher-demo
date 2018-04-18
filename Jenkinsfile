@@ -32,8 +32,8 @@ dir('docker-app') {
         def downloadSpec = """{
  "files": [
   {
-   "pattern": "libs-snapshot-local/com/example/wchat/1.0.0/wchat-1.0.0.jar",
-   "target": "wchat-1.0.0.jar",
+   "pattern": "libs-snapshot-local/com/example/wchat/1.0.1/wchat-1.0.1.jar",
+   "target": "wchat-1.0.1.jar",
    "flat":"true"
   }
   ]
