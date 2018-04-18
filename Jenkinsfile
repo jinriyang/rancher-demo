@@ -14,5 +14,40 @@ node {
   rtMaven.tool = 'maven'
    rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
    // Mark the code checkout 'stage'....
-  
+   stage('Checkout Docker') {
+   // Get some code from a GitHub repository
+   git url: 'https://github.com/jinriyang/rancher-demo.git' ,  credentialsId: 'jry'
+   }
+  buildInfo.env.capture = true
+withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'admin',
+usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+def uname=env.USERNAME
+def pw=env.PASSWORD
+artServer.username=uname
+artServer.password=pw
+ sh 'echo credentials applied'
+ def curlstr="curl -u"+uname+':'+pw+" 'http://demo.jfrogchina.com/artifactory/"
+dir('docker-app') {
+   stage('Resolve') {
+        def downloadSpec = """{
+ "files": [
+  {
+   "pattern": "libs-snapshot-local/com/example/wchat/1.0.0/wchat-1.0.0.jar",
+   "target": "wchat-1.0.0.jar",
+   "flat":"true"
+  }
+  ]
+}"""
+    println(downloadSpec)
+    artServer.download(downloadSpec, buildInfo)
+   }
+   stage('Build and Deploy') {
+        def tagName='docker-release-local.demo.jfrogchina.com/rancher-demo:'+env.BUILD_NUMBER
+        docker.build(tagName)
+        def artDocker= Artifactory.docker(uname, pw)
+        artDocker.push(tagName, 'docker-release-local', buildInfo)
+        artServer.publishBuildInfo(buildInfo)
+   }
+}
+}
 }
