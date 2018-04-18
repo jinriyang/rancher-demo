@@ -4,7 +4,7 @@ node {
   artServer.credentialsId='art-docker-ci'
   def buildInfo = Artifactory.newBuildInfo()
   stage 'Checkout MAVEN'
-  git url: 'https://github.com/jinriyang/rancher-demo.git', credentialsId: 'jry'
+  git url: 'https://github.com/jinriyang/wchat-demo.git', credentialsId: 'jry'
   
   stage 'Build Maven'
   def rtMaven = Artifactory.newMavenBuild()
